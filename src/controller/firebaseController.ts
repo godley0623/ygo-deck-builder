@@ -1,3 +1,5 @@
+import { CardType } from "../types/cardType";
+
 // import { initializeApp } from 'firebase/app'
 // import { query, where, onSnapshot } from 'firebase/firestore'
 // import { firebaseConfig, colRef } from '../firebase/firebaseConfig'
