@@ -1,0 +1,28 @@
+.card-search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 80%;
+    height: 60%;
+
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+    background-color: rgb(0, 0, 130);
+}
+
+.card-search-container .card-search-input {
+    margin-top: 3%;
+    text-align: center;
+    width: 75%;
+}
+
+.card-search-container button {
+    margin-top: 3%;
+
+    width: 30%;
+
+    border-radius: .75rem;
+    background-color: gold;
+}

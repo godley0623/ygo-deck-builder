@@ -62,7 +62,7 @@ export function getCardsByName(name: string, cards:CardType[] = []):CardType[] {
     const cardResult: CardType[] = []
 
     for (let i=0; i<cards.length; i++) {
-        if (cards[i].name.toLowerCase() === name.toLowerCase()) {
+        if (cards[i].name.toLowerCase().includes( name.toLowerCase() )) {
             cardResult.push(cards[i])
         }
     }
