@@ -16,6 +16,8 @@
     margin-top: 3%;
     text-align: center;
     width: 75%;
+
+    border-radius: 1rem;
 }
 
 .card-search-container button {
