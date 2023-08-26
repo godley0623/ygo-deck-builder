@@ -23,6 +23,8 @@ export default function CardDisplay(props:any) {
             return 'link monster'
         } else if (frame === 'spell' || frame === 'trap') {
             return 'st'
+        } else if (frame === 'skill') {
+            return 'skill'
         }
 
         return ''
@@ -48,14 +50,14 @@ export default function CardDisplay(props:any) {
 
     function getMonsterRace(card:CardType) {
         const monsterType = card.race
-        let result = `[${monsterType} / `
+        let result = `[ ${monsterType} / `
 
         const frame = card.frame_type
         if (frame.includes('pendulum')) {
             const pend = frame.split('_')
-            result = `${result}${cap(pend[0])} / ${cap(pend[1])}]`
+            result = `${result}${cap(pend[0])} / ${cap(pend[1])} ]`
         } else {
-            result = `${result}${cap(frame)}]`
+            result = `${result}${cap(frame)} ]`
         }
 
         return result
@@ -70,7 +72,7 @@ export default function CardDisplay(props:any) {
     function getSTRace(card:CardType) {
         const frame = card.frame_type
         const race = card.race
-        let result = `[${cap(frame)} / ${race}]`
+        let result = `[ ${cap(frame)} / ${race} ]`
 
         return result
     }
@@ -81,8 +83,10 @@ export default function CardDisplay(props:any) {
             <div key={key} className='card-container'>
                 <img onClick={() => goToInfoPage(key)} className='card-image' src={card.image} alt={card.name}/>
                 <div className='info-container'>
+                    
                     <h4 className='card-name'>{card.name}</h4>
-                    <div className='stat-container'>
+                    
+                    {getCardType(card) !== 'skill' && <div className='stat-container'>
                         <div className='attribute-container'>
                             {getCardType(card).includes('monster') && 
                             <>
@@ -129,7 +133,8 @@ export default function CardDisplay(props:any) {
                             </>
                         </div>}
 
-                    </div>
+                    </div>}
+
                     <div className='race-container'>
                         { getCardType(card).includes('monster') && <div>
                             <>
@@ -142,6 +147,16 @@ export default function CardDisplay(props:any) {
                             <h4>{getSTRace(card)}</h4>
                             </>    
                         </div>}
+
+                        { getCardType(card) === 'skill' && <div>
+                            <>
+                            <h4>{`[ Skill / ${card.race} ]`}</h4>
+                            </>    
+                        </div>}
+                    </div>
+                    
+                    <div className='desc-container'>
+                        <p>{card.card_desc}</p>
                     </div>
                 </div>
             </div>
