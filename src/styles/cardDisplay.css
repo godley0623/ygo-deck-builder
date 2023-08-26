@@ -6,11 +6,55 @@
 
 .card-display-container .card-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+}
+
+.card-display-container .card-name {
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .card-display-container .card-container .card-image {
-    width: 210.5px;
-    height: 307px;
+    width: 105.25px;
+    height: 153.5px;
+}
+
+.card-display-container .stat-container {
+    display: flex;
+}
+
+.card-display-container .attribute-container {
+    display: flex;
+}
+.card-display-container .attribute-container img {
+    width: 20px;
+    height: 20px;
+}
+.card-display-container .attribute-container h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.card-display-container .level-container {
+    display: flex;
+}
+.card-display-container .level-container img {
+    width: 20px;
+    height: 20px;
+}
+.card-display-container .level-container h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.card-display-container .atk-container h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.card-display-container .race-container h4 {
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0;
 }

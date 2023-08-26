@@ -21,15 +21,19 @@ export function attributeImages(attribute:string) {
     return attObj[attribute]
 }
 
-export const stImages = {
-    spell: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/attribute/attribute_icon_spell.png',
-    trap: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/attribute/attribute_icon_trap.png',
-    equip: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/effect/effect_icon_equip.png',
-    field: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/effect/effect_icon_field.png',
-    quickPlay: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/effect/effect_icon_quickplay.png',
-    ritual: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/effect/effect_icon_ritual.png',
-    continuous: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/effect/effect_icon_continuous.png',
-    counter: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/effect/effect_icon_counter.png'
+export function stImages(st:string):string {
+    const stObj:any = {
+        spell: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/attribute/attribute_icon_spell.png',
+        trap: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/attribute/attribute_icon_trap.png',
+        equip: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/effect/effect_icon_equip.png',
+        field: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/effect/effect_icon_field.png',
+        quickPlay: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/effect/effect_icon_quickplay.png',
+        ritual: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/effect/effect_icon_ritual.png',
+        continuous: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/effect/effect_icon_continuous.png',
+        counter: 'https://www.db.yugioh-card.com/yugiohdb/external/image/parts/effect/effect_icon_counter.png'
+    }
+
+    return stObj[st]
 }
 
 export function getRandomCards(amount: number): CardType[] {
