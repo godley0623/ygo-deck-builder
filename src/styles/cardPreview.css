@@ -1,0 +1,19 @@
+.card-preview-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.card-preview-container img {
+    width: 366px;
+    height: 533px;
+}

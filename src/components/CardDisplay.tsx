@@ -1,16 +1,18 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { CardType } from '../types/cardType'
 import '../styles/cardDisplay.css'
-import { useNavigate } from 'react-router-dom'
 import { capFirstLetter as cap } from '../controller/controller'
 import { attributeImages, levelImages, stImages } from '../controller/ygoController'
+import CardPreview from './CardPreview'
 
 export default function CardDisplay(props:any) {
-    const navigate = useNavigate()
+    const [preview, setPreview] = useState('')
 
-    function goToInfoPage(index: number) {
-        const cardId = props.cards[index].card_id
-        navigate(`/card-info/${cardId}`)
+    function showPreview(index: number) {
+        setPreview(props.cards[index].image)
+    }
+    function removePreview() {
+        setPreview('')
     }
 
     function getCardType(card:CardType): string {
@@ -79,9 +81,10 @@ export default function CardDisplay(props:any) {
 
     return (
     <div className='card-display-container'>
+        {preview && <CardPreview image={preview} removePreview={removePreview}/>}
         {props.cards.map((card: CardType, key: number) => (
             <div key={key} className='card-container'>
-                <img onClick={() => goToInfoPage(key)} className='card-image' src={card.image} alt={card.name}/>
+                <img onClick={() => showPreview(key)} className='card-image' src={card.image} alt={card.name}/>
                 <div className='info-container'>
                     
                     <h4 className='card-name'>{card.name}</h4>
