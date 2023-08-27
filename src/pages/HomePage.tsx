@@ -4,9 +4,9 @@ import CardDisplay from '../components/CardDisplay'
 import CardSearch from '../components/CardSearch'
 import '../styles/homePage.css'
 
-
 export default function HomePage() {
     const randomCards = getRandomCards(20)
+
   return (
     <div className='home-page'>
         <CardSearch />
