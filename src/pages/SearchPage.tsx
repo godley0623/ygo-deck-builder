@@ -53,10 +53,56 @@ export default function SearchPage() {
 
     }
 
+    function getPages() {
+        const pages:number[] = []
+        let pagesToDisplay = 5
+        let startingPage = page
+
+        while (pagesToDisplay > 0) {
+            if (startingPage <= numOfPages) {
+                pages.push(startingPage)
+                startingPage++
+            }else {
+                for (let i=(page-1); i > 0; i--) {
+                    if (pages.length < 5) pages.unshift(i)
+                }
+                break
+            }
+
+            pagesToDisplay--
+        }
+
+        return pages
+    }
+
+    function goToPage(page:number) {
+        window.scroll(0, 0);
+        navigate(`/search/${query}/${keyword}/${page}`)
+    }
+
   return (
     <div className='search-page'>
         <CardSearch />
         <CardDisplay cards={cardsOnPage}/>
+        {numOfPages > 1 && <div className='page-button-container'>
+            {page !== 1 && 
+            <>
+            <button onClick={() => goToPage(1)}>{'<<'}</button>
+            <button onClick={() => goToPage(page - 1)}>{'<'}</button>
+            </>
+            }
+
+            {getPages().map((page, key) => (
+                <button onClick={() => goToPage(page)} key={key}>{page}</button>
+            ))}
+
+            {page !== numOfPages &&
+            <>
+            <button onClick={() => goToPage(page + 1)}>{'>'}</button>
+            <button onClick={() => goToPage(numOfPages)}>{'>>'}</button>
+            </>
+            }
+        </div>}
     </div>
   )
 }
