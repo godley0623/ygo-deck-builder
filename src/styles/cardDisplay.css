@@ -71,6 +71,7 @@
 
 .card-display-container .attribute-container {
     display: flex;
+    align-items: center;
 }
 .card-display-container .attribute-container img {
     width: 20px;
@@ -83,6 +84,7 @@
 
 .card-display-container .level-container {
     display: flex;
+    align-items: center;
 }
 .card-display-container .level-container img {
     width: 20px;

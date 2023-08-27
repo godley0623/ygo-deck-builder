@@ -21,7 +21,7 @@ export default function CardSearch() {
     function handleSearch() {
         if (input.length === 0) navigate('/')
 
-        //if (input.length < 3) return
+        if (input.length < 1) return
 
         if (option === 'Search by Card Name') {
             navigate(`/search/name/${input}/1`)
