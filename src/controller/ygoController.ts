@@ -70,6 +70,19 @@ export function getCardsByName(name: string, cards:CardType[] = []):CardType[] {
     return cardResult
 }
 
+export function getCardsByText(text: string, cards:CardType[] = []):CardType[] {
+    if (!cards.length) cards = cardDB as CardType[]
+    const cardResult: CardType[] = []
+
+    for (let i=0; i<cards.length; i++) {
+        if (cards[i].card_desc.toLowerCase().includes( text.toLowerCase() )) {
+            cardResult.push(cards[i])
+        }
+    }
+
+    return cardResult
+}
+
 export function getCardsByArchetype(archetype: string, cards:CardType[] = []):CardType[] {
     if (!cards.length) cards = cardDB as CardType[]
     const cardResult: CardType[] = []

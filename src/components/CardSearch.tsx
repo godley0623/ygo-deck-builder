@@ -6,7 +6,7 @@ import logo from '../assets/logo-main.png'
 export default function CardSearch() {
     const navigate = useNavigate()
 
-    const searchOptions = ['Search by Card Name', 'Search by Archetype']
+    const searchOptions = ['Search by Card Name', 'Search by Archetype', 'Search by Card Text']
     
     const [input, setInput] = useState('')
     const [option, setOption] = useState(searchOptions[0])
@@ -28,6 +28,8 @@ export default function CardSearch() {
             navigate(`/search/name/${input}/1`)
         } else if (option === 'Search by Archetype') {
             navigate(`/search/archetype/${input}/1`)
+        } else if (option === 'Search by Card Text') {
+            navigate(`/search/text/${input}/1`)
         }
     }
 

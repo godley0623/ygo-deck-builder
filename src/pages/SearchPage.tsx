@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getCardsByArchetype, getCardsByName } from '../controller/ygoController'
+import { getCardsByArchetype, getCardsByName, getCardsByText } from '../controller/ygoController'
 import { CardType } from '../types/cardType'
 import CardSearch from '../components/CardSearch'
 import CardDisplay from '../components/CardDisplay'
@@ -36,6 +36,8 @@ export default function SearchPage() {
             return getCardsByName(keyword)
         } else if (query === 'archetype') {
             return getCardsByArchetype(keyword)
+        } else if (query === 'text') {
+            return getCardsByText(keyword)
         }
 
         return getCardsByName('dark magician')
