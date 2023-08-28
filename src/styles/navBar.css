@@ -1,0 +1,21 @@
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: rgb(236,236,236);
+
+    width: 100%;
+    height: 5rem;
+}
+
+.navbar-container img {
+    width: 87px;
+    height: 64px;
+    /* transform-origin: left top;
+    transform: scale(.15); */
+}
+
+.email-logout {
+    display: flex;
+    align-items: center;
+}

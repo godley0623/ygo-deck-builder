@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getCardsByArchetype, getCardsByName, getCardsByText } from '../controller/ygoController'
 import { CardType } from '../types/cardType'
+import NavBar from '../components/NavBar'
 import CardSearch from '../components/CardSearch'
 import CardDisplay from '../components/CardDisplay'
 import '../styles/searchPage.css'
@@ -84,6 +85,7 @@ export default function SearchPage() {
 
   return (
     <div className='search-page'>
+        <NavBar />
         <CardSearch />
         <CardDisplay cards={cardsOnPage}/>
         {numOfPages > 1 && <div className='page-button-container'>

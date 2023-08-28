@@ -2,6 +2,7 @@ import React from 'react'
 import { getRandomCards } from '../controller/ygoController'
 import CardDisplay from '../components/CardDisplay'
 import CardSearch from '../components/CardSearch'
+import NavBar from '../components/NavBar'
 import '../styles/homePage.css'
 
 export default function HomePage() {
@@ -9,6 +10,7 @@ export default function HomePage() {
 
   return (
     <div className='home-page'>
+        <NavBar />
         <CardSearch />
         <CardDisplay cards={randomCards}/>
     </div>
