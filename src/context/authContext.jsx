@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '../firebase/firebaseAuth'
 
 
@@ -9,6 +10,7 @@ export function useAuth() {
 }
 
 export function AuthProvider( {children} ) {
+  const navigate = useNavigate()
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
 
@@ -33,11 +35,17 @@ export function AuthProvider( {children} ) {
     return auth.signOut()
   }
 
+  function loginCheck() {
+    console.log(currentUser?.email)
+    if (!currentUser) navigate('/login')
+  }
+
   const value = {
     currentUser,
     signup,
     login,
-    logout
+    logout,
+    loginCheck
   }
   
   return (

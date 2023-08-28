@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/cardSearch.css'
+import logo from '../assets/logo-main.png'
 
 export default function CardSearch() {
     const navigate = useNavigate()
@@ -32,13 +33,16 @@ export default function CardSearch() {
 
   return (
     <div className='card-search-container'>
-        <input onChange={handleInput} placeholder='Enter Keyword' className='card-search-input'></input>
-        <select onChange={handleOption}>
-            {searchOptions.map((option, key) => (
-                <option key={key} value={option}>{option}</option>
-            ))}
-        </select>
-        <button onClick={handleSearch}>Search</button>
+        <img src={logo} alt="yugioh logo"/>
+        <div className='search-container'>
+            <input onChange={handleInput} placeholder='Enter Keyword' className='card-search-input'></input>
+            <select onChange={handleOption}>
+                {searchOptions.map((option, key) => (
+                    <option key={key} value={option}>{option}</option>
+                ))}
+            </select>
+            <button onClick={handleSearch}>Search</button>
+        </div>
     </div>
   )
 }
