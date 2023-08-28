@@ -10,7 +10,7 @@ export default function NavBar() {
 
     function handleLogout() {
         logout()
-        navigate('/')
+        window.location.assign('/');
     }
 
   return (
@@ -24,8 +24,7 @@ export default function NavBar() {
         }
         {currentUser &&
         <div className='email-logout'>
-            <h5>{currentUser.email}</h5>
-            <Link onClick={handleLogout} to=''>logout</Link>
+            <Link to=''>profile</Link> / <Link onClick={handleLogout} to=''>logout</Link>
         </div>
         }
     </div>

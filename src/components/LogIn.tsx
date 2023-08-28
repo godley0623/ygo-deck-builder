@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Card, Form, Button, Container, Alert } from 'react-bootstrap'
 import { useAuth } from '../context/authContext'
+import NavBar from './NavBar'
+import yjkBg from '../assets/yjk-bg.jpeg'
 
 export default function LogIn() {
     const navigate = useNavigate()
@@ -34,8 +36,9 @@ export default function LogIn() {
 
   return (
     <>
+    <NavBar />
     <Container className="d-flex align-items-center justify-content-center" 
-    style={ { flexDirection: 'column', minHeight: "100vh" } }
+    style={ { minWidth: '100%', flexDirection: 'column', minHeight: "100vh", backgroundImage: `url(${yjkBg})`, backgroundSize: '100% 100%' } }
   >
     <div className='w-100' style={ { maxWidth: "400px" } }>
         <Card>
@@ -53,11 +56,11 @@ export default function LogIn() {
                     </Form.Group>
                     <Button disabled={loading} type="submit" className='w-100 mt-4'>Log In</Button>
                 </Form>
-            </Card.Body>
-        </Card>
-        <div className='w-100 text-center mt-2'>
+                <div className='w-100 text-center mt-2'>
             Don't have an account? <Link to="/signup">Sign Up</Link>
         </div>
+            </Card.Body>
+        </Card>
     </div>
     </Container>
     </>

@@ -11,8 +11,7 @@
 .navbar-container img {
     width: 87px;
     height: 64px;
-    /* transform-origin: left top;
-    transform: scale(.15); */
+    cursor: pointer;
 }
 
 .email-logout {
