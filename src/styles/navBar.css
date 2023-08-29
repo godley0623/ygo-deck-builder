@@ -8,13 +8,15 @@
     height: 5rem;
 }
 
-.navbar-container img {
+.navbar-container .kc-logo {
     width: 87px;
     height: 64px;
     cursor: pointer;
 }
 
-.email-logout {
+.email-logout, .signup-login {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    margin-right: 1%;
 }
