@@ -4,3 +4,10 @@
     align-items: center;
     background-color: rgb(243,243,243);
 }
+
+.home-nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+}

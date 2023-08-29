@@ -10,8 +10,10 @@ export default function HomePage() {
 
   return (
     <div className='home-page'>
-        <NavBar />
-        <CardSearch />
+        <div className='home-nav'>
+          <NavBar />
+          <CardSearch />
+        </div>
         <CardDisplay cards={randomCards}/>
     </div>
   )

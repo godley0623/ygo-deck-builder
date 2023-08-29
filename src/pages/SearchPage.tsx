@@ -85,8 +85,10 @@ export default function SearchPage() {
 
   return (
     <div className='search-page'>
-        <NavBar />
-        <CardSearch />
+        <div className='search-nav'>
+            <NavBar />
+            <CardSearch />
+        </div>
         <CardDisplay cards={cardsOnPage}/>
         {numOfPages > 1 && <div className='page-button-container'>
             {page !== 1 && 

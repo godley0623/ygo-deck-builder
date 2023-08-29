@@ -18,8 +18,6 @@
     border-left: 1px solid black;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
-
-    overflow: auto;
 }
 .deck-container img {
     width: 35px;
@@ -55,19 +53,41 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 5%;
+
+    height: 20%;
+
+    position: relative;
+
+    margin-bottom: 1%;
+}
+.filter-container .input-container {
+    display: flex;
+    flex-direction: column;
+
+    position: sticky;
+    top: 0;
 }
 input, select {
     text-align: center;
 }
 
 .search-container .card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 5%;
 }
 .search-container .card-container img {
     width: 105.25px;
     height: 153.5px;
+    margin-bottom: 2.5%;
 }
 .search-container .card-container h4 {
     font-size: 1rem;
     margin: 0;
+}
+
+.deck-maker-container .searched-cards-container {
+    height: 74%;
+    overflow: auto;
 }
