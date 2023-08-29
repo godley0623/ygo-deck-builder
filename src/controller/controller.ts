@@ -15,3 +15,10 @@ export function shuffleArray(array:unknown[]) {
     }
     return array
 }
+
+export function removeElementAtIndex<T>(array: T[], index: number): T[] {
+  if (index >= 0 && index < array.length) {
+      array.splice(index, 1);
+  }
+  return array;
+}

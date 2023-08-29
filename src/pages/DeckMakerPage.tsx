@@ -1,15 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useAuth } from '../context/authContext'
 import '../styles/deckMakerPage.css'
 import { CardType } from '../types/cardType'
+import { getCardsByArchetype, getCardsByName } from '../controller/ygoController'
+import { removeElementAtIndex } from '../controller/controller'
+
+
 
 export default function DeckMakerPage() {
+    const searchOptions = ['Search by Card Name', 'Search by Archetype', 'Search by Card Text']
+
+    const searchOptionsRef:any = useRef(null)
+    const filterInputRef:any = useRef(null)
+
     const { loginCheck } = useAuth()
     const [monsters, setMonsters] = useState([])
     const [spells, setSpells] = useState([])
     const [traps, setTraps] = useState([])
     const [mainDeck, setMainDeck] = useState([])
     const [extraDeck, setExtraDeck] = useState([])
+    const [filteredCards, setFilterCards] = useState([])
 
     useEffect(() => {
         loginCheck()
@@ -18,6 +28,127 @@ export default function DeckMakerPage() {
     useEffect(() => {
         setMainDeck([...monsters, ...spells, ...traps])
     }, [monsters, spells, traps])
+
+    function handleFilter() {
+        const keyword = filterInputRef.current.value
+        let filter = searchOptionsRef.current
+        let cards: any;
+        if (filter && keyword.length > 2) {
+            filter = filter.value
+            if (filter === 'Search by Card Name') {
+                cards = getCardsByName(keyword)
+                setFilterCards(cards)
+            } else if (filter === 'Search by Archetype') {
+                cards = getCardsByArchetype(keyword)
+                setFilterCards(cards)
+            } else if (filter === 'Search by Card Text') {
+                cards = getCardsByArchetype(keyword)
+                setFilterCards(cards)
+            }
+
+        }
+    }
+
+    function cardPlacement(card:CardType) {
+        const f = card.frame_type
+        if ( f.includes('fusion') || f.includes('xyz') || f.includes('synchro') || f.includes('link') ){
+            return 'extra'
+        }
+
+        return 'main'
+    }
+
+    function addCardToDeck(card:CardType) {
+        if ( (cardPlacement(card) === 'main' && mainDeck.length >= 60) || (cardPlacement(card) === 'extra' && extraDeck.length >= 15) ) {
+            return
+        }
+
+        if (cardPlacement(card) === 'main') {
+            let copies = 0
+            mainDeck.forEach((mdCard:CardType) => {
+                if (mdCard.name === card.name) copies++
+            })
+            if (copies >= 3) return
+        } else {
+            let copies = 0
+            extraDeck.forEach((edCard:CardType) => {
+                if (edCard.name === card.name) copies++
+            })
+            if (copies >= 3) return
+        }
+
+        const f = card.frame_type
+        if (cardPlacement(card) === 'main') {
+            if (f === 'spell') {
+                let copy:any = [...spells]
+                copy.push(card)
+                setSpells(copy)
+            } else if (f === 'trap') {
+                let copy:any = [...traps]
+                copy.push(card)
+                setTraps(copy)
+            } else {
+                let copy:any = [...monsters]
+                copy.push(card)
+                setMonsters(copy)       
+            }
+        } else {
+            let copy:any = [...extraDeck]
+            copy.push(card)
+            setExtraDeck(copy)
+        }
+        console.log(mainDeck)
+        console.log(extraDeck)
+    }
+
+    function removeCardFromDeck(deck:string, index:number) {
+        if (deck === 'main') {
+            const card:CardType = mainDeck[index]
+            const f = card.frame_type
+            // let copy = [...mainDeck]
+            // copy = removeElementAtIndex(copy, index)
+            // setMainDeck(copy)
+
+            if (f === 'spell') {
+                let copy = [...spells]
+                for (let i=0; i<spells.length; i++) {
+                    let spell:CardType = spells[i]
+                    if (spell.name === card.name) {
+                        copy = removeElementAtIndex(copy, index)
+                        setSpells(copy)
+                        break
+                    }
+                }
+            }
+            else if (f === 'trap') {
+                let copy = [...traps]
+                for (let i=0; i<traps.length; i++) {
+                    let trap:CardType = traps[i]
+                    if (trap.name === card.name) {
+                        copy = removeElementAtIndex(copy, index)
+                        setTraps(copy)
+                        break
+                    }
+                }
+            }
+            else {
+                let copy = [...monsters]
+                for (let i=0; i<monsters.length; i++) {
+                    let monster:CardType = monsters[i]
+                    if (monster.name === card.name) {
+                        copy = removeElementAtIndex(copy, index)
+                        setMonsters(copy)
+                        break
+                    }
+                }
+            }
+
+        } else if (deck === 'extra') {
+            let copy = [...extraDeck]
+            copy = removeElementAtIndex(copy, index)
+            setExtraDeck(copy)
+        }
+    }
 
   return (
     <div className='deck-maker-container'>
@@ -32,16 +163,36 @@ export default function DeckMakerPage() {
             <div className='deck-title'>
                 <input placeholder='Deck Title' style={ {textAlign: 'center'} }/>
             </div>
-            <div className='main-deck-container'></div>
-            <div className='extra-deck-container'></div>
+            <div className='main-deck-container'>
+                {mainDeck.map((card:CardType, key) => (
+                    <img onClick={() => removeCardFromDeck('main', key)} src={card.image} alt='card'/>
+                ))}
+            </div>
+            <div className='extra-deck-container'>
+                {extraDeck.map((card:CardType, key) => (
+                    <img onClick={() => removeCardFromDeck('extra', key)} src={card.image} alt='card' />
+                ))}
+            </div>
             <div className='save-deck-container'></div>
         </div>
 
         <div className='search-container'>
             <div className='filter-container'>
-                <input placeholder='Keyword' style={ {textAlign: 'center'} }/>
+                <input ref={filterInputRef} onChange={handleFilter} placeholder='Keyword' style={ {textAlign: 'center'} }/>
+                <select onChange={handleFilter} ref={searchOptionsRef}>
+                    {searchOptions.map((option, key) => (
+                        <option key={key} value={option}>{option}</option>
+                    ))}
+                </select>
             </div>
-            <div className='searched-cards-container'></div>
+            <div className='searched-cards-container'>
+                {filteredCards.map((card:CardType, key) => (
+                <div className='card-container'>
+                    <h4 key={key}>{card.name}</h4>
+                    <img onClick={() => addCardToDeck(card)} src={card.image} alt='card'/>
+                </div>
+                ))}
+            </div>
         </div>
     </div>
   )
