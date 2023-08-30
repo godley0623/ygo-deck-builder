@@ -1,7 +1,14 @@
+.deck-maker-page .navbar-container {
+    position: sticky;
+    top:0
+}
+
 .deck-maker-container {
     width: 100%;
     display: flex;
     flex-direction: column;
+
+    background-color: rgb(250, 250, 250);
 }
 
 .deck-maker-container .card-info-container {
@@ -38,17 +45,29 @@
 }
 .deck-container .deck-title {
     display: flex;
+    align-items: center;
 
     position: sticky;
     top: 0;
 
-    background-color: white;
     border-bottom: 1px solid black;
 }
 .deck-title input {
     border-radius: 1rem;
 }
-.deck-container img {
+
+.card-frame-container {
+    display: flex;
+    align-items: center;
+}
+.card-frame-container div {
+    margin-top: 1.25%;
+}
+.card-frame-container h4 {
+    margin: 0;
+}
+
+.main-deck-container img, .extra-deck-container img {
     width: 35px;
     height: 51px;
 }
@@ -67,7 +86,23 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
+    border-bottom: 1px solid black;
 }
+
+.save-deck-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+.save-deck-container .save-deck {
+    border-radius: .75rem;
+    background-color: gold;
+}
+.save-deck-container .empty-deck {
+    border-radius: .75rem;
+    background-color: red;
+}
+
 
 .deck-maker-container .search-container {
     width: 100%;

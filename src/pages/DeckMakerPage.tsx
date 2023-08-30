@@ -5,6 +5,10 @@ import { CardType } from '../types/cardType'
 import { getCardsByArchetype, getCardsByName, getCardsByText } from '../controller/ygoController'
 import { removeElementAtIndex } from '../controller/controller'
 import NavBar from '../components/NavBar'
+import monsterFrame from '../assets/card_frame_sprites/monsterFrame.png'
+import spellFrame from '../assets/card_frame_sprites/spellFrame.png'
+import trapFrame from '../assets/card_frame_sprites/trapFrame.png'
+import extraFrame from '../assets/card_frame_sprites/extraFrame.png'
 
 
 
@@ -160,8 +164,15 @@ export default function DeckMakerPage() {
         setInfoDesc(card.card_desc)
     }
 
+    function handleEmptyDeck() {
+        setMonsters([])
+        setSpells([])
+        setTraps([])
+        setExtraDeck([])
+    }
+
   return (
-    <>
+    <div className='deck-maker-page'>
         <NavBar />
         <div className='deck-maker-container'>
             <div className='card-info-container'>
@@ -177,6 +188,24 @@ export default function DeckMakerPage() {
             <div className='deck-container'>
                 <div className='deck-title'>
                     <input placeholder='Deck Title' style={ {textAlign: 'center'} }/>
+                    <div className='card-frame-container'>
+                        <div className='container monster'>
+                            <img src={monsterFrame} alt='monster card frame'/>
+                            <h4>{`x${monsters.length}`}</h4>
+                        </div>
+                        <div className='container spell'>
+                            <img src={spellFrame} alt='spell card frame'/>
+                            <h4>{`x${spells.length}`}</h4>
+                        </div>
+                        <div className='container trap'>
+                            <img src={trapFrame} alt='trap card frame'/>
+                            <h4>{`x${traps.length}`}</h4>
+                        </div>
+                        <div className='container extra'>
+                            <img src={extraFrame} alt='extradeck card frame'/>
+                            <h4>{`x${extraDeck.length}`}</h4>
+                        </div>
+                    </div>
                 </div>
                 <div className='main-deck-container'>
                     {mainDeck.map((card:CardType, key) => (
@@ -188,7 +217,10 @@ export default function DeckMakerPage() {
                         <img onClick={() => removeCardFromDeck('extra', key)} src={card.image} alt='card' />
                     ))}
                 </div>
-                <div className='save-deck-container'></div>
+                <div className='save-deck-container'>
+                    <button className='save-deck'>Save Deck</button>
+                    <button onClick={handleEmptyDeck} className='empty-deck'>Empty Deck</button>
+                </div>
             </div>
 
             <div className='search-container'>
@@ -213,6 +245,6 @@ export default function DeckMakerPage() {
                 </div>
             </div>
         </div>
-    </>
+    </div>
   )
 }
