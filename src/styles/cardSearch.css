@@ -40,3 +40,8 @@
     border-radius: .75rem;
     background-color: gold;
 }
+
+.card-search-container img {
+    width: 132px;
+    height: 48px;
+}

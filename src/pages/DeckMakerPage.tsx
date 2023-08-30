@@ -21,6 +21,9 @@ export default function DeckMakerPage() {
     const [mainDeck, setMainDeck] = useState([])
     const [extraDeck, setExtraDeck] = useState([])
     const [filteredCards, setFilterCards] = useState([])
+    const [infoName, setInfoName] = useState('')
+    const [infoImage, setInfoImage] = useState('')
+    const [infoDesc, setInfoDesc] = useState('')
 
     useEffect(() => {
         loginCheck()
@@ -151,15 +154,24 @@ export default function DeckMakerPage() {
         }
     }
 
+    function displayInfoCard(card:CardType) {
+        setInfoName(card.name)
+        setInfoImage(card.image)
+        setInfoDesc(card.card_desc)
+    }
+
   return (
     <>
         <NavBar />
         <div className='deck-maker-container'>
             <div className='card-info-container'>
+                {infoName &&
                 <div className='card-container'>
-                    <img className='card-img' alt='card info'/>
-                    <h4 className='card-name'>Card Name</h4>
+                    <h4 className='card-name'>{infoName}</h4>
+                    <img src={infoImage} className='card-img' alt='card info'/>
+                    <div className='desc-container'><p className='card-desc'>{infoDesc}</p></div>
                 </div>
+                }
             </div>
             
             <div className='deck-container'>
@@ -194,7 +206,7 @@ export default function DeckMakerPage() {
                     {filteredCards.map((card:CardType, key) => (
                     <div className='card-container'>
                         <h4 key={key}>{card.name}</h4>
-                        <img src={card.image} alt='card'/>
+                        <img onClick={() => displayInfoCard(card)} src={card.image} alt='card'/>
                         <button onClick={() => addCardToDeck(card)}>Add to Deck</button>
                     </div>
                     ))}
