@@ -45,7 +45,7 @@
 }
 .deck-container .deck-title {
     display: flex;
-    gap: 5%;
+    gap: 2%;
     align-items: center;
 
     position: sticky;
@@ -70,12 +70,13 @@
 }
 .card-frame-container h4 {
     margin: 0;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .cover-card {
     width: 35px;
     height: 51px;
+    margin-left: 5%;
 
     cursor: pointer;
 }
