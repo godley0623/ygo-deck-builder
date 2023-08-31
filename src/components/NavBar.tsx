@@ -25,7 +25,7 @@ export default function NavBar() {
         }
         {currentUser &&
         <div className='email-logout'>
-            <Link to=''>profile</Link> / <Link onClick={handleLogout} to=''>logout</Link>
+            <Link to='/profile'>profile</Link> / <Link onClick={handleLogout} to=''>logout</Link>
         </div>
         }
     </div>

@@ -1,0 +1,46 @@
+.profile-page .card-preview-container {
+    z-index: 999999;
+}
+
+.profile-page .decks-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-page .deck-container {
+    display: flex;
+    gap: 2%;
+    margin-bottom: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
+}
+.profile-page .deck-info {
+    display: flex;
+    flex-direction: column;
+    height: 18rem;
+}
+.profile-page .deck-list {
+    height: 100%;
+    overflow: auto;
+}
+
+.profile-page .cover-card {
+    width: 105.25px;
+    height: 153.5px;
+
+    cursor: pointer;
+}
+
+.profile-page .list-container {
+    display: flex;
+}
+.profile-page .card-icon {
+    width: 35px;
+    height: 51px;
+
+    cursor: pointer;
+}
+.profile-page .card-name {
+    font-size: 12px;
+}

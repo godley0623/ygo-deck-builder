@@ -7,6 +7,7 @@ import SearchPage from "./pages/SearchPage";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import DeckMakerPage from "./pages/DeckMakerPage";
+import ProfilePage from "./pages/ProfilePage";
 import { AuthProvider } from "./context/authContext";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path='/card-info/:id' element={<InfoPage />} />
           <Route path='/search/:query/:keyword/:page' element={<SearchPage />}/>
           <Route path='/create-deck' element={<DeckMakerPage />}/>
+          <Route path='profile' element={<ProfilePage />}/>
         </Routes>
       </div>
     </AuthProvider>

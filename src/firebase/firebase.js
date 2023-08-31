@@ -14,7 +14,7 @@ const app = initializeApp({
 const db = getFirestore()
 const colRef = collection(db, 'decks')
 
-export function getDecksByOwner(owner) {
+export function getDecksByOwner(owner, setDecks) {
     const q = query(colRef, where('owner', '==', owner))
     onSnapshot(q, (snapshot) => {
         let decks = []
@@ -22,6 +22,7 @@ export function getDecksByOwner(owner) {
             decks.push({ ...doc.data(), id: doc.id })
         })
         console.log(decks)
+        setDecks(decks)
     })
 }
 

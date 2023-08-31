@@ -43,7 +43,7 @@
     overflow: auto;
     position: relative;
 }
-.deck-container .deck-title {
+.deck-maker-container .deck-container .deck-title {
     display: flex;
     gap: 2%;
     align-items: center;
@@ -73,7 +73,7 @@
     font-size: 12px;
 }
 
-.cover-card {
+.deck-title .cover-card {
     width: 35px;
     height: 51px;
     margin-left: 5%;

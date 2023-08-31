@@ -218,7 +218,7 @@ export default function DeckMakerPage() {
             extra_deck: extraDeck,
             owner: currentUser.email
         })
-        setSaveConfirm(`${deckTitle} Deck Save`)
+        setSaveConfirm(`${deckTitle} Deck Saved`)
     }
 
     function handleDeckTitle(e:any) {
