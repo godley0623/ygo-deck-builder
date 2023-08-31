@@ -44,6 +44,12 @@ export default function DeckMakerPage() {
         setMainDeck([...monsters, ...spells, ...traps])
     }, [monsters, spells, traps])
 
+    useEffect(() => {
+        if (saveError || saveConfirm) {
+            deckContainerRef.current.scrollTop = deckContainerRef.current.scrollHeight
+        }
+    }, [saveError, saveConfirm])
+
     function handleFilter() {
         const keyword = filterInputRef.current.value
         let filter = searchOptionsRef.current
@@ -190,19 +196,16 @@ export default function DeckMakerPage() {
 
         if (!deckTitle) {
             setSaveError('Your deck needs a title')
-            deckContainerRef.current.scrollTop = deckContainerRef.current.scrollHeight
             return
         }
 
         if (mainDeck.length < 40) {
             setSaveError('Your main deck needs a minimum of 40 cards')
-            deckContainerRef.current.scrollTop = deckContainerRef.current.scrollHeight
             return
         }
 
         if (!coverCard) {
             setSaveError('Your deck needs a cover card')
-            deckContainerRef.current.scrollTop = deckContainerRef.current.scrollHeight
             return
         }
 
@@ -216,7 +219,6 @@ export default function DeckMakerPage() {
             owner: currentUser.email
         })
         setSaveConfirm(`${deckTitle} Deck Save`)
-        deckContainerRef.current.scrollTop = deckContainerRef.current.scrollHeight
     }
 
     function handleDeckTitle(e:any) {
