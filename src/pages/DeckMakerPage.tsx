@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { Alert } from 'react-bootstrap'
 import { useAuth } from '../context/authContext'
 import '../styles/deckMakerPage.css'
 import { CardType } from '../types/cardType'
@@ -9,6 +10,7 @@ import monsterFrame from '../assets/card_frame_sprites/monsterFrame.png'
 import spellFrame from '../assets/card_frame_sprites/spellFrame.png'
 import trapFrame from '../assets/card_frame_sprites/trapFrame.png'
 import extraFrame from '../assets/card_frame_sprites/extraFrame.png'
+import { addDeck } from '../firebase/firebase'
 
 
 
@@ -17,17 +19,22 @@ export default function DeckMakerPage() {
 
     const searchOptionsRef:any = useRef(null)
     const filterInputRef:any = useRef(null)
+    const deckContainerRef:any = useRef(null)
 
-    const { loginCheck } = useAuth()
+    const { loginCheck, currentUser } = useAuth()
     const [monsters, setMonsters] = useState([])
     const [spells, setSpells] = useState([])
     const [traps, setTraps] = useState([])
     const [mainDeck, setMainDeck] = useState([])
     const [extraDeck, setExtraDeck] = useState([])
+    const [deckTitle, setDeckTitle] = useState('')
     const [filteredCards, setFilterCards] = useState([])
     const [infoName, setInfoName] = useState('')
     const [infoImage, setInfoImage] = useState('')
     const [infoDesc, setInfoDesc] = useState('')
+    const [coverCard, setCoverCard] = useState('')
+    const [saveError, setSaveError] = useState('')
+    const [saveConfirm, setSaveConfirm] = useState('')
 
     useEffect(() => {
         loginCheck()
@@ -67,6 +74,7 @@ export default function DeckMakerPage() {
     }
 
     function addCardToDeck(card:CardType) {
+        setSaveError('')
         const f = card.frame_type
 
         if (f === 'token' || f === 'skill') return
@@ -108,11 +116,10 @@ export default function DeckMakerPage() {
             copy.push(card)
             setExtraDeck(copy)
         }
-        console.log(mainDeck)
-        console.log(extraDeck)
     }
 
     function removeCardFromDeck(deck:string, index:number) {
+        setSaveError('')
         if (deck === 'main') {
             const card:CardType = mainDeck[index]
             const f = card.frame_type
@@ -169,6 +176,52 @@ export default function DeckMakerPage() {
         setSpells([])
         setTraps([])
         setExtraDeck([])
+        setCoverCard('')
+        setSaveError('')
+    }
+
+    function settingCoverCard(card:CardType) {
+        setCoverCard(card.image)
+    }
+
+    function saveDeck() {
+        setSaveError('')
+        setSaveConfirm('')
+
+        if (!deckTitle) {
+            setSaveError('Your deck needs a title')
+            deckContainerRef.current.scrollTop = deckContainerRef.current.scrollHeight
+            return
+        }
+
+        if (mainDeck.length < 40) {
+            setSaveError('Your main deck needs a minimum of 40 cards')
+            deckContainerRef.current.scrollTop = deckContainerRef.current.scrollHeight
+            return
+        }
+
+        if (!coverCard) {
+            setSaveError('Your deck needs a cover card')
+            deckContainerRef.current.scrollTop = deckContainerRef.current.scrollHeight
+            return
+        }
+
+        addDeck({
+            title: deckTitle,
+            cover_card: coverCard,
+            monsters: monsters,
+            spells: spells,
+            traps: traps,
+            extra_deck: extraDeck,
+            owner: currentUser.email
+        })
+        setSaveConfirm(`${deckTitle} Deck Save`)
+        deckContainerRef.current.scrollTop = deckContainerRef.current.scrollHeight
+    }
+
+    function handleDeckTitle(e:any) {
+        setSaveError('')
+        setDeckTitle(e.target.value)
     }
 
   return (
@@ -185,9 +238,9 @@ export default function DeckMakerPage() {
                 }
             </div>
             
-            <div className='deck-container'>
+            <div ref={deckContainerRef} className='deck-container'>
                 <div className='deck-title'>
-                    <input placeholder='Deck Title' style={ {textAlign: 'center'} }/>
+                    <input onChange={handleDeckTitle} placeholder='Deck Title' style={ {textAlign: 'center'} }/>
                     <div className='card-frame-container'>
                         <div className='container monster'>
                             <img src={monsterFrame} alt='monster card frame'/>
@@ -206,6 +259,9 @@ export default function DeckMakerPage() {
                             <h4>{`x${extraDeck.length}`}</h4>
                         </div>
                     </div>
+                    {coverCard &&
+                    <img onClick={() => setCoverCard('')} className='cover-card' src={coverCard} alt='cover card'/>
+                    }
                 </div>
                 <div className='main-deck-container'>
                     {mainDeck.map((card:CardType, key) => (
@@ -218,9 +274,15 @@ export default function DeckMakerPage() {
                     ))}
                 </div>
                 <div className='save-deck-container'>
-                    <button className='save-deck'>Save Deck</button>
+                    <button onClick={saveDeck} className='save-deck'>Save Deck</button>
                     <button onClick={handleEmptyDeck} className='empty-deck'>Empty Deck</button>
                 </div>
+                {saveError &&
+                    <Alert variant='danger'>{saveError}</Alert>
+                }
+                {saveConfirm &&
+                    <Alert variant='success'>{saveConfirm}</Alert>
+                }
             </div>
 
             <div className='search-container'>
@@ -239,7 +301,10 @@ export default function DeckMakerPage() {
                     <div className='card-container'>
                         <h4 key={key}>{card.name}</h4>
                         <img onClick={() => displayInfoCard(card)} src={card.image} alt='card'/>
-                        <button onClick={() => addCardToDeck(card)}>Add to Deck</button>
+                        <div className='buttons'>
+                            <button onClick={() => addCardToDeck(card)}>Add to Deck</button>
+                            <button onClick={() => settingCoverCard(card)}>Set as Cover</button>
+                        </div>
                     </div>
                     ))}
                 </div>

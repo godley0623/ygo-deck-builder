@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '../firebase/firebaseAuth'
+import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '../firebase/firebase'
 
 
 const AuthContext = React.createContext()
@@ -36,7 +36,6 @@ export function AuthProvider( {children} ) {
   }
 
   function loginCheck() {
-    console.log(currentUser?.email)
     if (!currentUser) navigate('/login')
   }
 
