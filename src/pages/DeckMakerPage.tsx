@@ -11,6 +11,7 @@ import spellFrame from '../assets/card_frame_sprites/spellFrame.png'
 import trapFrame from '../assets/card_frame_sprites/trapFrame.png'
 import extraFrame from '../assets/card_frame_sprites/extraFrame.png'
 import { addDeck, updateDeckByID } from '../firebase/firebase'
+import CardPreview from '../components/CardPreview'
 
 
 
@@ -37,6 +38,7 @@ export default function DeckMakerPage() {
     const [saveError, setSaveError] = useState('')
     const [saveConfirm, setSaveConfirm] = useState('')
     const [editID, setEditID] = useState('')
+    const [preview, setPreview] = useState('')
 
     useEffect(() => {
         loginCheck()
@@ -52,6 +54,14 @@ export default function DeckMakerPage() {
             deckContainerRef.current.scrollTop = deckContainerRef.current.scrollHeight
         }
     }, [saveError, saveConfirm])
+
+    function removePreview() {
+        setPreview('')
+    }
+
+    function showPreview(image:string) {
+        setPreview(image)
+    }
 
     function editDeck() {
         const deckID = localStorage.getItem('YDB: deckID')
@@ -278,13 +288,14 @@ export default function DeckMakerPage() {
 
   return (
     <div className='deck-maker-page'>
+        {preview && <CardPreview image={preview} removePreview={removePreview}/>}
         <NavBar />
         <div className='deck-maker-container'>
             <div className='card-info-container'>
                 {infoName &&
                 <div className='card-container'>
                     <h4 className='card-name'>{infoName}</h4>
-                    <img src={infoImage} className='card-img' alt='card info'/>
+                    <img onClick={() => showPreview(infoImage)} src={infoImage} className='card-img' alt='card info'/>
                     <div className='desc-container'><p className='card-desc'>{infoDesc}</p></div>
                 </div>
                 }
@@ -351,7 +362,7 @@ export default function DeckMakerPage() {
                 <div className='searched-cards-container'>
                     {filteredCards.map((card:CardType, key) => (
                     <div className='card-container'>
-                        <h4 key={key}>{card.name}</h4>
+                        <div className='name-container'><h4 key={key}>{card.name}</h4></div>
                         <img onClick={() => displayInfoCard(card)} src={card.image} alt='card'/>
                         <div className='buttons'>
                             <button onClick={() => addCardToDeck(card)}>Add to Deck</button>

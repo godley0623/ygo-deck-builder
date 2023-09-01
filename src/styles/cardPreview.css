@@ -11,6 +11,8 @@
     left: 0;
 
     background-color: rgba(0, 0, 0, 0.5);
+
+    z-index: 99999;
 }
 
 .card-preview-container img {
@@ -21,8 +23,8 @@
 @media screen and (min-width: 1024px) {
 
     .card-preview-container img {
-        width: 421px;
-        height: 614px;
+        width: 526px;
+        height: 767px;
     }
 
 }
