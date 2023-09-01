@@ -10,7 +10,7 @@ import monsterFrame from '../assets/card_frame_sprites/monsterFrame.png'
 import spellFrame from '../assets/card_frame_sprites/spellFrame.png'
 import trapFrame from '../assets/card_frame_sprites/trapFrame.png'
 import extraFrame from '../assets/card_frame_sprites/extraFrame.png'
-import { addDeck } from '../firebase/firebase'
+import { addDeck, updateDeckByID } from '../firebase/firebase'
 
 
 
@@ -20,6 +20,7 @@ export default function DeckMakerPage() {
     const searchOptionsRef:any = useRef(null)
     const filterInputRef:any = useRef(null)
     const deckContainerRef:any = useRef(null)
+    const deckTitleRef:any = useRef(null)
 
     const { loginCheck, currentUser } = useAuth()
     const [monsters, setMonsters] = useState([])
@@ -35,9 +36,11 @@ export default function DeckMakerPage() {
     const [coverCard, setCoverCard] = useState('')
     const [saveError, setSaveError] = useState('')
     const [saveConfirm, setSaveConfirm] = useState('')
+    const [editID, setEditID] = useState('')
 
     useEffect(() => {
         loginCheck()
+        editDeck()
     }, [loginCheck])
 
     useEffect(() => {
@@ -49,6 +52,38 @@ export default function DeckMakerPage() {
             deckContainerRef.current.scrollTop = deckContainerRef.current.scrollHeight
         }
     }, [saveError, saveConfirm])
+
+    function editDeck() {
+        const deckID = localStorage.getItem('YDB: deckID')
+        if (!deckID) return
+        if (deckID) {
+            const title = localStorage.getItem('YDB: title') || 'title'
+            const cc = localStorage.getItem('YDB: coverCard') || ''
+            const m = JSON.parse(localStorage.getItem('YDB: monsters') || '[]')
+            const s = JSON.parse(localStorage.getItem('YDB: spells') || '[]')
+            const t = JSON.parse(localStorage.getItem('YDB: traps') || '[]')
+            const ed = JSON.parse(localStorage.getItem('YDB: extraDeck') || '[]')
+
+            setEditID(deckID)
+            setDeckTitle(title)
+            setCoverCard(cc)
+            setMonsters(m)
+            setSpells(s)
+            setTraps(t)
+            setExtraDeck(ed)
+
+            deckTitleRef.current.value = title
+
+            localStorage.removeItem('YDB: deckID')
+            localStorage.removeItem('YDB: title')
+            localStorage.removeItem('YDB: coverCard')
+            localStorage.removeItem('YDB: monsters')
+            localStorage.removeItem('YDB: spells')
+            localStorage.removeItem('YDB: traps')
+            localStorage.removeItem('YDB: extraDeck')
+
+        }
+    }
 
     function handleFilter() {
         const keyword = filterInputRef.current.value
@@ -209,6 +244,21 @@ export default function DeckMakerPage() {
             return
         }
 
+        if (editID) {
+            const updateObj = {
+                title: deckTitle,
+                cover_card: coverCard,
+                monsters: monsters,
+                spells: spells,
+                traps: traps,
+                extra_deck: extraDeck
+            }
+
+            updateDeckByID(editID, updateObj)
+            setSaveConfirm(`Your deck has been edited`)
+            return
+        }
+
         addDeck({
             title: deckTitle,
             cover_card: coverCard,
@@ -242,7 +292,7 @@ export default function DeckMakerPage() {
             
             <div ref={deckContainerRef} className='deck-container'>
                 <div className='deck-title'>
-                    <input onChange={handleDeckTitle} placeholder='Deck Title' style={ {textAlign: 'center'} }/>
+                    <input ref={deckTitleRef} onChange={handleDeckTitle} placeholder='Deck Title' style={ {textAlign: 'center'} }/>
                     <div className='card-frame-container'>
                         <div className='container monster'>
                             <img src={monsterFrame} alt='monster card frame'/>

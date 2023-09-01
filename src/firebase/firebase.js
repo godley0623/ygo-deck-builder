@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
-import { getFirestore, collection, /*getDocs,*/ query, where, onSnapshot, addDoc, deleteDoc, doc } from 'firebase/firestore'
+import { getFirestore, collection, /*getDocs,*/ query, where, onSnapshot, addDoc, deleteDoc, updateDoc, doc } from 'firebase/firestore'
 
 const app = initializeApp({
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -33,6 +33,11 @@ export function addDeck(deckInfo) {
 export function deleteDeckByID(deckID) {
     const docRef = doc(db, 'decks', deckID)
     deleteDoc(docRef)
+}
+
+export function updateDeckByID(deckID, updateObj) {
+    const docRef = doc(db, 'decks', deckID)
+    updateDoc(docRef, updateObj)
 }
 
 

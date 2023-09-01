@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/authContext'
 import NavBar from '../components/NavBar'
 import { deleteDeckByID, getDecksByOwner } from '../firebase/firebase'
@@ -15,6 +16,8 @@ type CardListType = {
 
 
 export default function ProfilePage() {
+    const navigate = useNavigate()
+    
     const { loginCheck, currentUser } = useAuth()
     const user = currentUser.email.split('@')[0]
 
@@ -64,6 +67,18 @@ export default function ProfilePage() {
         setDeleteDeck('')
     }
 
+    function handleEdit(deck:DeckType) {
+        localStorage.setItem('YDB: deckID', deck.id)
+        localStorage.setItem('YDB: title', deck.title)
+        localStorage.setItem('YDB: coverCard', deck.cover_card)
+        localStorage.setItem('YDB: monsters', JSON.stringify(deck.monsters))
+        localStorage.setItem('YDB: spells', JSON.stringify(deck.spells))
+        localStorage.setItem('YDB: traps', JSON.stringify(deck.traps))
+        localStorage.setItem('YDB: extraDeck', JSON.stringify(deck.extra_deck))
+
+        navigate('/create-deck/')
+    }
+
   return (
     <div className='profile-page'>
         {preview && <CardPreview image={preview} removePreview={removePreview}/>}
@@ -86,7 +101,7 @@ export default function ProfilePage() {
                     <div className='deck-options'>
                         <img onClick={() => showPreview(deck.cover_card)} className='cover-card' src={deck.cover_card} alt="cover card" />
                         <div className='edit-delete'>
-                            <i className="fa-regular fa-pen-to-square"></i>
+                            <i onClick={() => handleEdit(deck)} className="fa-regular fa-pen-to-square"></i>
                             <i onClick={() => setDeleteDeck(deck.id)} className="fa-solid fa-trash-can"></i>
                         </div>
                     </div>

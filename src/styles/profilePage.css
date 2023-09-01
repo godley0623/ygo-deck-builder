@@ -65,6 +65,7 @@
 .profile-page .list-container {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
 }
 .profile-page .card-icon {
     width: 35px;
