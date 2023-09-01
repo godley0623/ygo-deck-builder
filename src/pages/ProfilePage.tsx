@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '../context/authContext'
 import NavBar from '../components/NavBar'
-import { getDecksByOwner } from '../firebase/firebase'
+import { deleteDeckByID, getDecksByOwner } from '../firebase/firebase'
 import { DeckType } from '../types/deckType'
 import { CardType } from '../types/cardType'
 import '../styles/profilePage.css'
 import CardPreview from '../components/CardPreview'
+import { Button } from 'react-bootstrap'
 
 type CardListType = {
     quantity: number;
@@ -19,6 +20,7 @@ export default function ProfilePage() {
 
     const [decks, setDecks] = useState([])
     const [preview, setPreview] = useState('')
+    const [deleteDeck, setDeleteDeck] = useState('')
 
     useEffect(() => {
         loginCheck()
@@ -57,15 +59,37 @@ export default function ProfilePage() {
         setPreview(image)
     }
 
+    function deleteDeckFromDB() {
+        deleteDeckByID(deleteDeck)
+        setDeleteDeck('')
+    }
+
   return (
     <div className='profile-page'>
         {preview && <CardPreview image={preview} removePreview={removePreview}/>}
+        {deleteDeck && 
+        <div className='delete-deck-container'>
+            <div className='option-container'>
+                <h4>Are you sure you want to delete this deck?</h4>
+                <div className='buttons'>
+                    <Button onClick={deleteDeckFromDB} variant='danger'>Yes</Button>
+                    <Button onClick={() => setDeleteDeck('')} variant='primary'>No</Button>
+                </div>
+            </div>
+        </div>
+        }
         <NavBar />
         <div className='decks-container'>
             <h1>{`${user}'s Decks`}</h1>
             {decks.map((deck:DeckType, key) => (
                 <div key={key} className='deck-container'>
-                    <img onClick={() => showPreview(deck.cover_card)} className='cover-card' src={deck.cover_card} alt="cover card" />
+                    <div className='deck-options'>
+                        <img onClick={() => showPreview(deck.cover_card)} className='cover-card' src={deck.cover_card} alt="cover card" />
+                        <div className='edit-delete'>
+                            <i className="fa-regular fa-pen-to-square"></i>
+                            <i onClick={() => setDeleteDeck(deck.id)} className="fa-solid fa-trash-can"></i>
+                        </div>
+                    </div>
                     <div className='deck-info'>
                         <h2 className='deck-title'>{deck.title}</h2>
                         <div className='deck-list'>

@@ -30,7 +30,7 @@ export function addDeck(deckInfo) {
     addDoc(colRef, deckInfo)
 }
 
-export function deleteDeck(deckID) {
+export function deleteDeckByID(deckID) {
     const docRef = doc(db, 'decks', deckID)
     deleteDoc(docRef)
 }

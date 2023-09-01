@@ -2,6 +2,36 @@
     z-index: 999999;
 }
 
+.delete-deck-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background-color: rgba(0, 0, 0, 0.5);
+
+    z-index: 999999;
+}
+.delete-deck-container .option-container {
+    background-color: white;
+    width: 75%;
+
+    padding-top: 2.5%;
+    padding-bottom: 5%;
+
+    border-radius: 1rem;
+}
+.delete-deck-container .buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .profile-page .decks-container {
     display: flex;
     flex-direction: column;
@@ -34,6 +64,7 @@
 
 .profile-page .list-container {
     display: flex;
+    align-items: center;
 }
 .profile-page .card-icon {
     width: 35px;
@@ -43,4 +74,20 @@
 }
 .profile-page .card-name {
     font-size: 12px;
+}
+
+.profile-page .deck-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.profile-page .edit-delete {
+    display: flex;
+    justify-content: space-evenly;
+
+    width: 100%;
+}
+i {
+    cursor: pointer;
 }
