@@ -44,6 +44,9 @@
     margin-left: 5%;
     margin-right: 5%;
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
+
+    background-color: rgb(240,250,240);
+    border-radius: 1rem;
 }
 .profile-page .deck-info {
     display: flex;
@@ -91,4 +94,41 @@
 }
 i {
     cursor: pointer;
+}
+
+@media screen and (min-width: 1024px) {
+    .profile-page .decks-container {
+        align-items: center;
+    }
+
+    .profile-page .deck-container {
+        justify-content: center;
+        width: 60%;
+        margin-bottom: 3%;
+    }
+
+    .profile-page .cover-card {
+        width: 157px;
+        height: 229px;
+    }
+
+    .profile-page .card-icon {
+        width: 52px;
+        height: 76px;
+    }
+
+    .profile-page .card-name {
+        font-size: 18px;
+    }
+
+    i {
+        font-size: 24px;
+    }
+
+    .delete-deck-container .option-container {
+        width: 33%;
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+
 }
