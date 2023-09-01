@@ -45,3 +45,36 @@
     width: 132px;
     height: 48px;
 }
+
+@media screen and (min-width: 1024px) {
+
+    .card-search-container {
+        padding-bottom: 1%;
+        margin-bottom: 0;
+    }
+
+    .card-search-container img {
+        width: 198px;
+        height: 72px;
+    }
+
+    .card-search-container .card-search-input {
+        margin-top: 1%;
+        margin-bottom: 1.5%;
+        text-align: center;
+        width: 33%;
+        height: 2rem;
+    
+        border-radius: 1rem;
+    }
+
+    .card-search-container button {
+        margin-top: 1%;
+    
+        width: 15%;
+    
+        border-radius: .75rem;
+        background-color: gold;
+    }
+
+}

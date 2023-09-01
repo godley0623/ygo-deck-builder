@@ -17,3 +17,12 @@
     width: 366px;
     height: 533px;
 }
+
+@media screen and (min-width: 1024px) {
+
+    .card-preview-container img {
+        width: 421px;
+        height: 614px;
+    }
+
+}
