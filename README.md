@@ -4,7 +4,7 @@
 Deployed Website: https://ygodeckbuilderjg.netlify.app/ 
 
 # Project Description
-A full CRUD web application that let's you look up Yugioh cards in our database and create deck.
+A full CRUD web application that let's you look up Yugioh cards in our database and create decks.
 
 # Technology USed
 -HTML   
