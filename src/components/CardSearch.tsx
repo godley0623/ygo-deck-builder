@@ -10,6 +10,7 @@ export default function CardSearch() {
     
     const [input, setInput] = useState('')
     const [option, setOption] = useState(searchOptions[0])
+    const [hide, setHide] = useState('');
 
     function handleInput(e:any) {
         setInput(e.target.value)
@@ -33,18 +34,32 @@ export default function CardSearch() {
         }
     }
 
+    function toggleHide() {
+        if (hide) {
+            setHide('')
+        }else {
+            setHide('hide')
+        }
+    }
+
   return (
     <div className='card-search-container'>
-        <img src={logo} alt="yugioh logo"/>
-        <div className='search-container'>
-            <input onChange={handleInput} placeholder='Enter Keyword' className='card-search-input'></input>
-            <select onChange={handleOption}>
+        <img className={`${hide}`} src={logo} alt="yugioh logo"/>
+        <div className="search-container">
+            <input onChange={handleInput} placeholder='Enter Keyword' className={`card-search-input ${hide}`}></input>
+            <select className={`${hide}`} onChange={handleOption}>
                 {searchOptions.map((option, key) => (
                     <option key={key} value={option}>{option}</option>
                 ))}
             </select>
-            <button onClick={handleSearch}>Search</button>
+            <button className={`${hide}`} onClick={handleSearch}>Search</button>
         </div>
+        {hide &&
+        <i onClick={toggleHide} className="fa-regular fa-eye"></i>
+        }
+        {!hide &&
+         <i onClick={toggleHide} className="fa-regular fa-eye-slash"></i>
+        }
     </div>
   )
 }

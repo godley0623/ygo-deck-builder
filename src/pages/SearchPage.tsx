@@ -6,6 +6,7 @@ import NavBar from '../components/NavBar'
 import CardSearch from '../components/CardSearch'
 import CardDisplay from '../components/CardDisplay'
 import '../styles/searchPage.css'
+import { Button } from 'react-bootstrap'
 
 export default function SearchPage() {
     const navigate = useNavigate()
@@ -93,19 +94,23 @@ export default function SearchPage() {
         {numOfPages > 1 && <div className='page-button-container'>
             {page !== 1 && 
             <>
-            <button onClick={() => goToPage(1)}>{'<<'}</button>
-            <button onClick={() => goToPage(page - 1)}>{'<'}</button>
+            <Button onClick={() => goToPage(1)}>{'<<'}</Button>
+            <Button onClick={() => goToPage(page - 1)}>{'<'}</Button>
             </>
             }
 
-            {getPages().map((page, key) => (
-                <button onClick={() => goToPage(page)} key={key}>{page}</button>
-            ))}
+            {getPages().map((p, key) => {
+                if (p !== page) {
+                    return <Button onClick={() => goToPage(p)} key={key}>{p}</Button>
+                } else {
+                    return <Button variant='warning' onClick={() => goToPage(p)} key={key}>{p}</Button>
+                }   
+            })}
 
             {page !== numOfPages &&
             <>
-            <button onClick={() => goToPage(page + 1)}>{'>'}</button>
-            <button onClick={() => goToPage(numOfPages)}>{'>>'}</button>
+            <Button onClick={() => goToPage(page + 1)}>{'>'}</Button>
+            <Button onClick={() => goToPage(numOfPages)}>{'>>'}</Button>
             </>
             }
         </div>}

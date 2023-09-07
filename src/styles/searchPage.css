@@ -15,9 +15,19 @@
 .search-page .page-button-container {
     display: flex;
     justify-content: center;
-    gap: 4%;
+    gap: 2%;
+    margin-bottom: 5%;
 }
 
-.search-page .page-button-container button {
-    /* background-color: gold; */
+.page-button-container button {
+    display: flex;
+    justify-content: center;
+    width: 36px;
+}
+
+@media screen and (min-width: 1024px) {
+    .page-button-container button {
+        width: 46.58px;
+        height: 38px;
+    }
 }
